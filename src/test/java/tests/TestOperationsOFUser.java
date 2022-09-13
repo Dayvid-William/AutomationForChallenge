@@ -17,7 +17,7 @@ public class TestOperationsOFUser {
     String user = "administrator";
     String senha = "12345654321";
     String email = "emailTest@email.com";
-
+    String realName = "Dayvid William";
     @Before
     public void setUp() {
         WebDriverManager.chromedriver().setup();
@@ -53,7 +53,18 @@ public class TestOperationsOFUser {
         WebElement emailBox = browser.findElement(By.id("email-field"));
         String emailBoxText = emailBox.getText();
         assertEquals(emailBoxText, emailBoxText);
+
+        browser.findElement(By.id("realname")).clear();
+        browser.findElement(By.id("realname")).sendKeys(realName);
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/form/div/div[2]/div[2]/input")).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/a/span")).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
+        WebElement realNameTextBox = browser.findElement(By.id("realname"));
+        String realNameText = realNameTextBox.getAttribute("value");
+        assertEquals(realName, realNameText);
     }
+
+
 
 
 }
