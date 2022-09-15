@@ -7,10 +7,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import javax.sql.rowset.BaseRowSet;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestOperationsOFUser {
     private WebDriver browser;
@@ -18,7 +24,6 @@ public class TestOperationsOFUser {
     String senha = "12345654321";
     String email = "emailTest@email.com";
     String realName = "Dayvid William";
-
     @Before
     public void setUp() {
         WebDriverManager.chromedriver().setup();
@@ -41,7 +46,7 @@ public class TestOperationsOFUser {
         assertEquals(user, nameInTheBox);
     }
 
-    //@Test
+    @Test
     public void AddEmail() {
         browser.findElement(By.linkText(user)).click();
         browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
@@ -66,7 +71,7 @@ public class TestOperationsOFUser {
         assertEquals(realName, realNameText);
     }
 
-    //@Test
+    @Test
     public void ChangePassword() {
         browser.findElement(By.linkText(user)).click();
         browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
@@ -87,6 +92,32 @@ public class TestOperationsOFUser {
         WebElement userBox = browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/a/span"));
         String nameInTheBox = userBox.getText();
         assertEquals(user, nameInTheBox);
+    }
+
+    @Test
+    public void AddPerfil() {
+        browser.findElement(By.linkText(user)).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
+
+        //click no elemento de xpath "/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a".
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a")).click();
+        //digitar no elemento de id "platform" o texto "Java".
+        browser.findElement(By.id("platform")).sendKeys("Java");
+        //digitar no elemento de id "os" o texto "Windowns".
+        browser.findElement(By.id("os")).sendKeys("Windowns");
+        //digitar no elemento de id "os-build" o texto "10".
+        browser.findElement(By.id("os_build")).sendKeys("10");
+        //digitar no elemento de id "description" o texto "dados do sistema utilizado por este usuario".
+        browser.findElement(By.id("description")).sendKeys("dados do sistema utilizado por este usuario");
+        //clicar no botão de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/form/fieldset/div/div[3]/button".
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[4]/form/fieldset/div/div[3]/button")).click();
+        //verififcar se existe o campo de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[1]/h4/text()" foi criado.
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a")).click();
+
+        WebElement perfilBox =  browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[1]/h4"));
+        String perfilText = perfilBox.getText();
+        assertEquals("Perfís", perfilText);
+
     }
 }
 
