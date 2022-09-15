@@ -99,25 +99,39 @@ public class TestOperationsOFUser {
         browser.findElement(By.linkText(user)).click();
         browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
 
-        //click no elemento de xpath "/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a".
         browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a")).click();
-        //digitar no elemento de id "platform" o texto "Java".
         browser.findElement(By.id("platform")).sendKeys("Java");
-        //digitar no elemento de id "os" o texto "Windowns".
         browser.findElement(By.id("os")).sendKeys("Windowns");
-        //digitar no elemento de id "os-build" o texto "10".
         browser.findElement(By.id("os_build")).sendKeys("10");
-        //digitar no elemento de id "description" o texto "dados do sistema utilizado por este usuario".
         browser.findElement(By.id("description")).sendKeys("dados do sistema utilizado por este usuario");
-        //clicar no botão de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/form/fieldset/div/div[3]/button".
+
         browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[4]/form/fieldset/div/div[3]/button")).click();
-        //verififcar se existe o campo de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[1]/h4/text()" foi criado.
         browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a")).click();
 
         WebElement perfilBox =  browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[1]/h4"));
         String perfilText = perfilBox.getText();
         assertEquals("Perfís", perfilText);
+    }
 
+    @Test
+    public void ChangeProfileInfo() {
+        browser.findElement(By.linkText(user)).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a")).click();
+
+        //clicar o elemento de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[6]/div/div[1]/form/button".
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[6]/div/div[1]/form/button")).click();
+        //Digitar no elemento de id "platform" o texto "Python"
+        browser.findElement(By.id("platform")).clear();
+        browser.findElement(By.id("platform")).sendKeys("Python");
+        //Clicar no elmento de xpath "/html/body/div[2]/div[2]/div[2]/div/div/form/div/div[2]/div[2]/button"
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/form/div/div[2]/div[2]/button")).click();
+        //clicar no botão de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a"
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a")).click();
+        //vericar se o elemento de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[1]" contem o texto "Python"
+        WebElement checkPlatform = browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[1]"));
+        String platformText = checkPlatform.getText();
+        assertEquals("Python", platformText);
     }
 }
 
