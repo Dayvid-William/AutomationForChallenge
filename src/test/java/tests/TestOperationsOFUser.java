@@ -1,22 +1,15 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import javax.sql.rowset.BaseRowSet;
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class TestOperationsOFUser {
     private WebDriver browser;
@@ -72,6 +65,24 @@ public class TestOperationsOFUser {
     }
 
     @Test
+    public void AddPerfil() {
+        browser.findElement(By.linkText(user)).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
+
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a")).click();
+        browser.findElement(By.id("platform")).sendKeys("Java");
+        browser.findElement(By.id("os")).sendKeys("Windowns");
+        browser.findElement(By.id("os_build")).sendKeys("10");
+        browser.findElement(By.id("description")).sendKeys("dados do sistema utilizado por este usuario");
+
+        browser.findElement(By.xpath("//*[@id=\"account-profile-form\"]/fieldset/div/div[3]/button")).click();
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a")).click();
+
+        WebElement perfilBox =  browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[1]/h4"));
+        String perfilText = perfilBox.getText();
+        assertEquals("Perfís", perfilText);
+    }
+    @Test
     public void ChangePassword() {
         browser.findElement(By.linkText(user)).click();
         browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
@@ -94,45 +105,6 @@ public class TestOperationsOFUser {
         assertEquals(user, nameInTheBox);
     }
 
-    @Test
-    public void AddPerfil() {
-        browser.findElement(By.linkText(user)).click();
-        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
-
-        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a")).click();
-        browser.findElement(By.id("platform")).sendKeys("Java");
-        browser.findElement(By.id("os")).sendKeys("Windowns");
-        browser.findElement(By.id("os_build")).sendKeys("10");
-        browser.findElement(By.id("description")).sendKeys("dados do sistema utilizado por este usuario");
-
-        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[4]/form/fieldset/div/div[3]/button")).click();
-        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a")).click();
-
-        WebElement perfilBox =  browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[1]/h4"));
-        String perfilText = perfilBox.getText();
-        assertEquals("Perfís", perfilText);
-    }
-
-    @Test
-    public void ChangeProfileInfo() {
-        browser.findElement(By.linkText(user)).click();
-        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
-        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a")).click();
-
-        //clicar o elemento de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[6]/div/div[1]/form/button".
-        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[6]/div/div[1]/form/button")).click();
-        //Digitar no elemento de id "platform" o texto "Python"
-        browser.findElement(By.id("platform")).clear();
-        browser.findElement(By.id("platform")).sendKeys("Python");
-        //Clicar no elmento de xpath "/html/body/div[2]/div[2]/div[2]/div/div/form/div/div[2]/div[2]/button"
-        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/form/div/div[2]/div[2]/button")).click();
-        //clicar no botão de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a"
-        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a")).click();
-        //vericar se o elemento de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[1]" contem o texto "Python"
-        WebElement checkPlatform = browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[1]"));
-        String platformText = checkPlatform.getText();
-        assertEquals("Python", platformText);
-    }
 
     @Test
     public void MakeDefaultPerfil() {
@@ -147,6 +119,48 @@ public class TestOperationsOFUser {
         browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[5]/i"));
 
         //if this test is run 2 times it will remove the main profile and this test is failed.
+    }
+
+    @Test
+    public void ChangeProfileInfo() {
+        browser.findElement(By.linkText(user)).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a")).click();
+
+        //clicar o elemento de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[6]/div/div[1]/form/button".
+        browser.findElement(By.xpath("//*[@id=\"categories\"]/div/div[2]/div/div/table/tbody/tr/td[6]/div/div[1]/form/button")).click();
+        //Digitar no elemento de id "platform" o texto "Python"
+        browser.findElement(By.id("platform")).clear();
+        browser.findElement(By.id("platform")).sendKeys("Python");
+        //Clicar no elmento de xpath "/html/body/div[2]/div[2]/div[2]/div/div/form/div/div[2]/div[2]/button"
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/form/div/div[2]/div[2]/button")).click();
+        //clicar no botão de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a"
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a")).click();
+        //vericar se o elemento de xpath "/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[1]" contem o texto "Python"
+        WebElement checkPlatform = browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[1]"));
+        String platformText = checkPlatform.getText();
+        assertEquals("Python", platformText);
+
+        //Need exist one perfil in the system for successful!
+    }
+
+    @Test
+    public void DeletPerfil() {
+        browser.findElement(By.linkText(user)).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a")).click();
+
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr[1]/td[6]/div/div[2]/form/button")).click();
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/form/input[6]")).click();
+
+        WebElement ConfirmedTextBox = browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/p"));
+        String ConfirmedText = ConfirmedTextBox.getText();
+        assertEquals("Operação realizada com sucesso.", ConfirmedText);
+    }
+
+    @After
+    public void End() {
+        browser.quit();
     }
 }
 
