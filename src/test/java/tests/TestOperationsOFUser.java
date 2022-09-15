@@ -133,5 +133,20 @@ public class TestOperationsOFUser {
         String platformText = checkPlatform.getText();
         assertEquals("Python", platformText);
     }
+
+    @Test
+    public void MakeDefaultPerfil() {
+        browser.findElement(By.linkText(user)).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/ul/li[4]/a")).click();
+
+
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[6]/div/div[3]/form/button")).click();
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a")).click();
+
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[2]/div/div/table/tbody/tr/td[5]/i"));
+
+        //if this test is run 2 times it will remove the main profile and this test is failed.
+    }
 }
 
