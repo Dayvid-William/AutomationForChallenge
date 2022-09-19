@@ -47,22 +47,26 @@ public class TestFunctionsUsers {
 
     @Test
     public void CreateNewUser() {
-        //clicar no elemento de xpath "//*[@id="sidebar"]/ul/li[6]/a/i".
         browser.findElement(By.xpath("//*[@id=\"sidebar\"]/ul/li[6]/a/i")).click();
-        //clicar no elemento de linkText "Gerenciar Usuários".
         browser.findElement(By.linkText("Gerenciar Usuários")).click();
-        //clicar no elemento de linkText "Criar nova conta".
         browser.findElement(By.linkText("Criar nova conta")).click();
-        //digitar no campo de id "user-username" o texto da variavel "user".
         browser.findElement(By.id("user-username")).sendKeys(user2);
-        //digitar no campo de id "user-realname" o texto da variavel "real name".
         browser.findElement(By.id("user-realname")).sendKeys(realname);
-        // digitar no campo de id "email-field" o texto da variavel "email".
         browser.findElement(By.id("email-field")).sendKeys(email);
-        //-selecionar gerente no campo type
+
+
         WebElement AcessLevel = browser.findElement(By.xpath("//*[@id=\"user-access-level\"]"));
         new Select(AcessLevel).selectByVisibleText("gerente");
-        // clicar no elemento de xpath "//*[@id="manage-user-create-form"]/div/div[3]/input"
         browser.findElement(By.xpath("//*[@id=\"manage-user-create-form\"]/div/div[3]/input")).click();
+        browser.findElement(By.xpath("//*[@id=\"sidebar\"]/ul/li[6]/a/span")).click();
+        browser.findElement(By.xpath("//*[@id=\"sidebar\"]/ul/li[6]/a/i")).click();
+        browser.findElement(By.linkText("Gerenciar Usuários")).click();
+
+        WebElement userBox = browser.findElement(By.xpath("//*[@id=\"main-container\"]/div[2]/div[2]/div/div/div[4]/div[2]/div[2]/div/table/tbody/tr[2]/td[1]"));
+        String userBoxText = userBox.getText();
+        assertEquals(user2, userBoxText);
     }
+
+    @Test
+    public void 
 }
