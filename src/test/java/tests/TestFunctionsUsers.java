@@ -68,5 +68,21 @@ public class TestFunctionsUsers {
     }
 
     @Test
-    public void 
+    public void EditUser() {
+        browser.findElement(By.xpath("//*[@id=\"sidebar\"]/ul/li[6]/a/i")).click();
+        browser.findElement(By.linkText("Gerenciar Usuários")).click();
+        browser.findElement(By.linkText(user2)).click();
+
+        WebElement AcessLevel = browser.findElement(By.xpath("//*[@id=\"edit-access-level\"]"));
+        new Select(AcessLevel).selectByVisibleText("desenvolvedor");
+        browser.findElement(By.xpath("//*[@id=\"edit-user-form\"]/div/div[2]/div[2]/input")).click();
+
+
+        browser.findElement(By.xpath("//*[@id=\"sidebar\"]/ul/li[6]/a/i")).click();
+        browser.findElement(By.linkText("Gerenciar Usuários")).click();
+
+        WebElement functionBox = browser.findElement(By.xpath("//*[@id=\"main-container\"]/div[2]/div[2]/div/div/div[4]/div[2]/div[2]/div/table/tbody/tr[2]/td[4]"));
+        String fuctionBoxText = functionBox.getText();
+        assertEquals("desenvolvedor", fuctionBoxText);
+    }
 }
