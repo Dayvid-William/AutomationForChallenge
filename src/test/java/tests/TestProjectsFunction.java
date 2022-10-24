@@ -7,6 +7,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.Assert.assertEquals;
 
@@ -56,5 +57,21 @@ public class TestProjectsFunction {
         WebElement projectBox = browser.findElement(By.linkText("Projeto1"));
         String projectBoxText = projectBox.getText();
         assertEquals("Projeto1", projectBoxText);
+    }
+
+    @Test
+    public void ChangeStatusProject() {
+        //clicar no elmento de xpath "//*[@id="sidebar"]/ul/li[7]/a"
+        browser.findElement(By.xpath("//*[@id=\"sidebar\"]/ul/li[7]/a")).click();
+        //clicar no elemento de linktext "Gerenciar Projetos"
+        browser.findElement(By.linkText("Gerenciar Projetos")).click();
+        //clicar no elmento de linktext "Projeto1"
+        browser.findElement(By.linkText("Projeto1")).click();
+        //criar um webelement com o elmento de id "project-status" e troca para o status de "estavel"
+        WebElement statusProject = browser.findElement(By.id("project-status"));
+        new Select(statusProject).selectByVisibleText("release");
+        //verificar se o status foi realmente modificado
+        browser.findElement(By.xpath("//*[@id=\"manage-proj-update-form\"]/div/div[3]/input")).click();
+        browser.findElement(By.linkText("Projeto1")).click();
     }
 }
