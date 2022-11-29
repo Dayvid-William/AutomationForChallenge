@@ -14,8 +14,8 @@ import static org.junit.Assert.assertEquals;
 public class TestOperationsOFUser {
     private WebDriver browser;
     String user = "administrator";
-    String senha = "12345654321";
-    String email = "emailTest@email.com";
+    String senha = "root";
+    String email = "root@localhost";
     String realName = "Dayvid William";
     @Before
     public void setUp() {
@@ -23,7 +23,7 @@ public class TestOperationsOFUser {
         ChromeDriver driver = new ChromeDriver();
         System.setProperty("webdriver.chrome.drive", String.valueOf(driver));
         browser = new ChromeDriver();
-        browser.get("http://localhost/mantisbt/login_page.php");
+        browser.get("http://localhost/mantisbt/mantisbt-2.25.4/login_page.php");
     }
 
     @Before
@@ -40,6 +40,22 @@ public class TestOperationsOFUser {
     }
 
     @Test
+    public void changeRealName() {
+        browser.findElement(By.id("realname")).clear();
+        browser.findElement(By.id("realname")).sendKeys(realName);
+        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/form/div/div[2]/div[2]/input")).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/a/span")).click();
+        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
+
+        browser.findElement(By.xpath("//*[@id=\"sidebar\"]/ul/li[6]/a/span")).click();
+        browser.findElement(By.linkText("Gerenciar Usuários")).click();
+
+        WebElement realNameTextBox = browser.findElement(By.xpath("//*[@id=\"main-container\"]/div[2]/div[2]/div/div/div[4]/div[2]/div[2]/div/table/tbody/tr[2]/td[2]"));
+        String realNameText = realNameTextBox.getText();
+        assertEquals(realName, realNameText);
+    }
+
+    @Test
     public void AddEmail() {
         browser.findElement(By.linkText(user)).click();
         browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
@@ -52,16 +68,6 @@ public class TestOperationsOFUser {
         WebElement emailBox = browser.findElement(By.id("email-field"));
         String emailBoxText = emailBox.getAttribute("value");
         assertEquals(email, emailBoxText);
-
-        browser.findElement(By.id("realname")).clear();
-        browser.findElement(By.id("realname")).sendKeys(realName);
-        browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/form/div/div[2]/div[2]/input")).click();
-        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/a/span")).click();
-        browser.findElement(By.xpath("/html/body/div[1]/div/div[2]/ul/li[3]/ul/li[1]/a")).click();
-
-        WebElement realNameTextBox = browser.findElement(By.id("realname"));
-        String realNameText = realNameTextBox.getAttribute("value");
-        assertEquals(realName, realNameText);
     }
 
     @Test
@@ -77,6 +83,8 @@ public class TestOperationsOFUser {
 
         browser.findElement(By.xpath("//*[@id=\"account-profile-form\"]/fieldset/div/div[3]/button")).click();
         browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div/div[2]/div/a")).click();
+
+
 
         WebElement perfilBox =  browser.findElement(By.xpath("/html/body/div[2]/div[2]/div[2]/div/div/div[2]/div/div[1]/h4"));
         String perfilText = perfilBox.getText();
@@ -158,7 +166,7 @@ public class TestOperationsOFUser {
         assertEquals("Operação realizada com sucesso.", ConfirmedText);
     }
 
-    @After
+   // @After
     public void End() {
         browser.quit();
     }

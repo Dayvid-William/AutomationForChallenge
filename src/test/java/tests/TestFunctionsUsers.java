@@ -16,7 +16,7 @@ public class TestFunctionsUsers {
 
     String user = "administrator";
     String user2 = "dayvidwilliam";
-    String senha = "12345654321";
+    String senha = "root";
 
     String realname = "Dayvid William";
 
@@ -29,7 +29,7 @@ public class TestFunctionsUsers {
         ChromeDriver driver = new ChromeDriver();
         System.setProperty("webdriver.chrome.drive", String.valueOf(driver));
         browser = new ChromeDriver();
-        browser.get("http://localhost/mantisbt/login_page.php");
+        browser.get("http://localhost/mantisbt/mantisbt-2.25.4/login_page.php");
     }
 
     @Before
